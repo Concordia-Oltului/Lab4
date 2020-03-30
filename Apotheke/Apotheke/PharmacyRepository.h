@@ -12,7 +12,8 @@ private:
 
 public:
 	PharmacyRepository();
-
+	
+	int get_capacity() { return capacity; }
 	int lenght() { return elements; }
 
 	string get_name(int index) { return med[index].get_name(); }

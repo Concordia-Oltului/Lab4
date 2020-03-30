@@ -2,6 +2,7 @@
 #include <iostream>
 #include "PharmacyDomain.h"
 #include "PharmacyRepository.h"
+#include "PharmacyController.h"
 
 using namespace std;
 
@@ -35,16 +36,34 @@ void test_add_remove_repo() {
 	}
 	Medicine* test = repo.get_all_med();
 	for (int i = 0; i < 10; i++) {
-		assert(test[i].get_concentration() == (130 + i));
+		assert(test[i].get_concentration() == (130.0 + i));
 	}
 	for (int i = 130; i < 140; i++) {
 		assert(repo.remove_med("paracetamol", i));
 	}
+}
 
+void test_add_remove_controller() {
+	PharmacyRepository repo;
+	PharmacyController ctrl(repo);
+	for (int i = 10; i < 30; i++) {
+		ctrl.add("paracetamol", i, 5, 0.5*i);
+		ctrl.add("paracetamol", i, 5);
+	}
+	for (int i = 0; i < 10; i++) {
+		assert(ctrl.get_concentration(i) == (10.0 + i));
+	}
+	for (int i = 10; i < 30; i++) {
+		assert(ctrl.remove("paracetamol", i, 7));
+		assert(ctrl.remove("paracetamol", i, 1));
+		assert(ctrl.remove("paracetamol", i));
+		assert(ctrl.remove("paracetamol", i, 6));
+	}
 }
 
 
 void runAllTests() {
 	test_getters_setters();
 	test_add_remove_repo();
+	test_add_remove_controller();
 }

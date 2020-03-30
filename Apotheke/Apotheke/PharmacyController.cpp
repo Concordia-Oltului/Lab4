@@ -3,7 +3,7 @@
 
 using namespace std;
 
-PharmacyController::PharmacyController(PharmacyRepository repository) {
+PharmacyController::PharmacyController(PharmacyRepository& repository) {
 	repo = repository;
 }
 
@@ -18,7 +18,7 @@ void PharmacyController::add(string name, double concentration, int quantity, do
 	@author: Stefan
 	*/
 	//searching for medicine in repo
-	int index = repo.find(name, quantity);
+	int index = repo.find(name, concentration);
 	if (index == -1)//if medicine was not found add it into list
 		repo.add_med(name, concentration, price, quantity);
 	else {// if medicine was found increase it's quantity 
@@ -40,7 +40,7 @@ bool PharmacyController::remove(string name, double concentration, int quantity)
 		Bool
 	@author: Stefan
 	*/
-	int index = repo.find(name, quantity);
+	int index = repo.find(name, concentration);
 	if (index != -1) {
 		if (repo.get_quantity(index)<quantity)
 			repo.remove_med(name, concentration);

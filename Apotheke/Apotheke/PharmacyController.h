@@ -7,7 +7,11 @@ class PharmacyController {
 private:
 	PharmacyRepository repo;
 public:
-	PharmacyController(const PharmacyRepository repository);
+	PharmacyController();
+
+	PharmacyController(PharmacyRepository& repository);
+
+	double get_concentration(int index) { return repo.get_concentration(index); }
 
 	void add(string name, double concentration, int quantity = 1, double price = 0);
 

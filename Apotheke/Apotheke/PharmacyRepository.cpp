@@ -10,18 +10,16 @@ PharmacyRepository::PharmacyRepository() {
 	med = new Medicine[capacity];
 }
 
-void PharmacyRepository::operator=(const PharmacyRepository repo){
+void PharmacyRepository::operator=(PharmacyRepository repo){
 	/*
 	Copies the elements from repo in this repo and repo's capacity and elements became this instance capcity and elements
 	Input:
 		repo (PharmacyRepository) - source repository
 	@author: Stefan
 	*/
-	capacity = repo.capacity;
-	elements = repo.elements;
-	for (int i = 0; i < repo.elements; i++) {
-		med[i] = repo.med[i];
-	}
+	capacity = repo.get_capacity();
+	elements = repo.lenght();
+	Medicine* med = repo.get_all_med();
 }
 
 void PharmacyRepository::add_med(string name, double concentration, double price, int quantity) {
@@ -46,7 +44,8 @@ void PharmacyRepository::add_med(string name, double concentration, double price
 		med = new_arr;
 	}
 	Medicine new_med(name, concentration, price, quantity);
-	med[elements++] = new_med;
+	med[elements] = new_med;
+	elements++;
 }
 
 int PharmacyRepository::find(string name, double concentration) {
@@ -141,5 +140,6 @@ Medicine* PharmacyRepository::get_all_med() {
 }
 
 PharmacyRepository::~PharmacyRepository() {
-	delete[] med;
+	if (elements != 0)
+		delete[] med;
 }
