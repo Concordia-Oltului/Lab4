@@ -1,4 +1,5 @@
 #pragma once
+#include "PharmacyDomain.h"
 #include "PharmacyRepository.h"
 
 using namespace std;
@@ -11,11 +12,30 @@ public:
 
 	PharmacyController(PharmacyRepository& repository);
 
+	void operator=(PharmacyController& other);
+
+	string get_name(int index) { return repo.get_name(index); }
 	double get_concentration(int index) { return repo.get_concentration(index); }
+	double get_price(int index) { return repo.get_price(index); }
+	int get_quantity(int index) { return repo.get_quantity(index); }
+
+
+
+	int find(string name, double concentration) { return repo.find(name, concentration); }
+
 
 	void add(string name, double concentration, int quantity = 1, double price = 0);
 
 	bool remove(string name, double concentration, int quantity = 1);
+
+	void update_name(string old_name, double concentration, string new_name);
+	void update_concentration(string name, double old_concentration, double new_concentration);
+	void update_price(string name, double concentration, double price);
+	void update_quantity(string name, double concentration, double quantity);
+
+	void sort_by_price();
+
+	void print_all();
 
 	~PharmacyController();
 };

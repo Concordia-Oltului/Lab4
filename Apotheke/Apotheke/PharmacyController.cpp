@@ -3,8 +3,45 @@
 
 using namespace std;
 
+PharmacyController::PharmacyController() {
+	PharmacyRepository other;
+	repo = other;
+}
+
 PharmacyController::PharmacyController(PharmacyRepository& repository) {
 	repo = repository;
+}
+
+void PharmacyController::operator=(PharmacyController& other){
+	repo = other.repo;
+}
+
+void PharmacyController::update_name(string old_name, double concentration, string new_name){
+	int index = repo.find(old_name, concentration);
+	if (index != -1)
+		repo.update_med_name(index, new_name);
+}
+
+void PharmacyController::update_concentration(string name, double old_concentration, double new_concentration){
+	int index = repo.find(name, old_concentration);
+	if (index != -1)
+		repo.update_med_concentration(index, new_concentration);
+}
+
+void PharmacyController::update_price(string name, double concentration, double price){
+	int index = repo.find(name, concentration);
+	if (index != -1)
+		repo.update_med_price(index, price);
+}
+
+void PharmacyController::update_quantity(string name, double concentration, double quantity){
+	int index = repo.find(name, concentration);
+	if (index != -1)
+		repo.update_med_quantity(index, quantity);
+}
+
+void PharmacyController::sort_by_price(){
+	repo.sort_by_price();
 }
 
 void PharmacyController::add(string name, double concentration, int quantity, double price) {
@@ -53,5 +90,12 @@ bool PharmacyController::remove(string name, double concentration, int quantity)
 	return false;
 }
 
+
+void PharmacyController::print_all() {
+	Medicine* all = repo.get_all_med();
+	cout << "Name\tConcentration\tPrice\tQuantity" << endl;
+	for (int i = 0; i < repo.lenght(); i++)
+		cout << all[i].get_name() << "\t" << all[i].get_concentration() << "\t" << all[i].get_price() << "\t" << all[i].get_quantity() << endl;
+}
 
 PharmacyController::~PharmacyController(){}

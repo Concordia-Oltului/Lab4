@@ -67,6 +67,63 @@ int PharmacyRepository::find(string name, double concentration) {
 	return -1;
 }
 
+bool PharmacyRepository::update_med_name(int index, string name) {
+	/*
+	Change name of the element with the index index in med and then returns true
+	If index is not in range of the array returns false
+	Input:
+		index (int) - index in med array
+		name (string) - new name 
+	Output:
+		bool
+	@author: Stefan
+	*/
+	if (index < 0 || index > elements)
+		return false;
+	else {
+		med[index].set_name(name);
+		return true;
+	}
+}
+
+bool PharmacyRepository::update_med_concentration(int index, double concentration) {
+	/*
+	Change concentration of the element with the index index in med and then returns true
+	If index is not in range of the array returns false
+	Input:
+		index (int) - index in med array
+		concentration (double) - new concentration value
+	Output:
+		bool
+	@author: Stefan
+	*/
+	if (index < 0 || index > elements)
+		return false;
+	else {
+		med[index].set_concentration(concentration);
+		return true;
+	}
+}
+
+bool PharmacyRepository::update_med_price(int index, double price) {
+	/*
+	Change price of the element with the index index in med and then returns true
+	If index is not in range of the array returns false
+	Input:
+		index (int) - index in med array
+		price (double) - new price value
+	Output:
+		bool
+	@author: Stefan
+	*/
+	if (index < 0 || index > elements)
+		return false;
+	else {
+		med[index].set_price(price);
+		return true;
+	}
+}
+
 bool PharmacyRepository::update_med_quantity(int index, int quantity) {
 	/*
 	Change quantity of the element with the index index in med and then returns true

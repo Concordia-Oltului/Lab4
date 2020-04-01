@@ -21,13 +21,13 @@
     <ClCompile Include="PharmacyRepository.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PharmacyUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PharmacyController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PharmacyUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,6 +42,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PharmacyController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PharmacyUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

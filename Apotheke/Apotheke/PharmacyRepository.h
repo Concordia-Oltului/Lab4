@@ -27,7 +27,10 @@ public:
 
 	int find(string name, double concentration);
 
-	bool update_med_quantity(int index, int quantity = 1);
+	bool update_med_name(int index, string name);
+	bool update_med_concentration(int index, double concentration);
+	bool update_med_price(int index, double price);
+	bool update_med_quantity(int index, int quantity);
 
 	bool remove_med(string name, double concentration);
 

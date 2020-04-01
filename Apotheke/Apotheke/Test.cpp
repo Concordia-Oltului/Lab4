@@ -61,9 +61,26 @@ void test_add_remove_controller() {
 	}
 }
 
+void test_update_controller() {
+	PharmacyRepository repo;
+	PharmacyController ctrl(repo);
+	for (int i = 10; i < 30; i++) {
+		ctrl.add("paracetamol", i, 5, 0.5 * i);
+	}
+	ctrl.update_name("paracetamol", 15, "aspirina");
+	string aux = ctrl.get_name(5);
+	assert(aux.compare("aspirina") == 0);
+	ctrl.update_concentration("aspirina", 15, 12);
+	assert(ctrl.get_concentration(5) == 12);
+	ctrl.update_price("aspirina", 12, 432.4);
+	assert(ctrl.get_price(5) == 432.4);
+	ctrl.update_quantity("aspirina", 12, 120);
+	assert(ctrl.get_quantity(5) == 120);
+}
 
 void runAllTests() {
 	test_getters_setters();
 	test_add_remove_repo();
 	test_add_remove_controller();
+	test_update_controller();
 }
