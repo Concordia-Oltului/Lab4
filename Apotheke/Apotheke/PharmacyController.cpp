@@ -12,35 +12,69 @@ PharmacyController::PharmacyController(PharmacyRepository& repository) {
 	repo = repository;
 }
 
-void PharmacyController::operator=(PharmacyController& other){
+PharmacyController PharmacyController::operator=(PharmacyController& other){
 	repo = other.repo;
+	return *this;
 }
 
 void PharmacyController::update_name(string old_name, double concentration, string new_name){
-	int index = repo.find(old_name, concentration);
+	/*
+	Changes medicine name with another name
+	Input:
+		old_name (string)
+		concentration (double)
+		new_name (string)
+	@author: Stefan
+	*/
+	int index = repo.find(old_name, concentration); //search if medicine exist in list
 	if (index != -1)
 		repo.update_med_name(index, new_name);
 }
 
 void PharmacyController::update_concentration(string name, double old_concentration, double new_concentration){
-	int index = repo.find(name, old_concentration);
+	/*
+	Changes medicine concentration with another concentration 
+	Input:
+		name (string)
+		old_concentration (double)
+		new_concentration (double)
+	@author: Stefan
+	*/
+	int index = repo.find(name, old_concentration); //search if medicine exist in list
 	if (index != -1)
 		repo.update_med_concentration(index, new_concentration);
 }
 
 void PharmacyController::update_price(string name, double concentration, double price){
-	int index = repo.find(name, concentration);
+	/*
+	Changes medicine price with another price 
+	Input:
+		name (string)
+		concentration (double)
+		price (double)
+	@author: Stefan
+	*/
+	int index = repo.find(name, concentration); //search if medicine exist in list
 	if (index != -1)
 		repo.update_med_price(index, price);
 }
 
 void PharmacyController::update_quantity(string name, double concentration, double quantity){
-	int index = repo.find(name, concentration);
+	/*
+	Changes medicine quantity with another quantity
+	Input:
+		name (string)
+		concentration (double)
+		quantity (int)
+	@author: Stefan
+	*/
+	int index = repo.find(name, concentration); //search if medicine exist in list
 	if (index != -1)
 		repo.update_med_quantity(index, quantity);
 }
 
 void PharmacyController::sort_by_price(){
+	//sort elements from rository by price
 	repo.sort_by_price();
 }
 
@@ -79,7 +113,7 @@ bool PharmacyController::remove(string name, double concentration, int quantity)
 	*/
 	int index = repo.find(name, concentration);
 	if (index != -1) {
-		if (repo.get_quantity(index)<quantity)
+		if (repo.get_quantity(index) <= quantity)
 			repo.remove_med(name, concentration);
 		else {
 			int new_quantity = repo.get_quantity(index) - quantity;
@@ -92,6 +126,10 @@ bool PharmacyController::remove(string name, double concentration, int quantity)
 
 
 void PharmacyController::print_all() {
+	/*
+	Prints elements form repository
+	@author: Stefan
+	*/
 	Medicine* all = repo.get_all_med();
 	cout << "Name\tConcentration\tPrice\tQuantity" << endl;
 	for (int i = 0; i < repo.lenght(); i++)

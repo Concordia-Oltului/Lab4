@@ -12,7 +12,7 @@ private:
 
 public:
 	PharmacyRepository();
-	
+
 	int get_capacity() { return capacity; }
 	int lenght() { return elements; }
 
@@ -21,7 +21,7 @@ public:
 	double get_price(int index) { return med[index].get_price(); }
 	int get_quantity(int index) { return med[index].get_quantity(); }
 
-	void operator=(const PharmacyRepository repo);
+	PharmacyRepository operator=(PharmacyRepository& repo);
 
 	void add_med(string name, double concentration, double price, int quantity);
 

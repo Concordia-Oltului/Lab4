@@ -43,6 +43,19 @@ void test_add_remove_repo() {
 	}
 }
 
+void test_sort_by_price() {
+	PharmacyRepository repo;
+	for (int i = 130; i < 140; i++) {
+		repo.add_med("paracetamol", 3, 140-i, 10);
+	}
+	repo.sort_by_price();
+
+	Medicine* test = repo.get_all_med();
+	for (int i = 0; i < 10; i++) {
+		assert(test[i].get_price() == (i+1));
+	}
+}
+
 void test_add_remove_controller() {
 	PharmacyRepository repo;
 	PharmacyController ctrl(repo);
@@ -81,6 +94,7 @@ void test_update_controller() {
 void runAllTests() {
 	test_getters_setters();
 	test_add_remove_repo();
+	test_sort_by_price();
 	test_add_remove_controller();
 	test_update_controller();
 }

@@ -12,7 +12,7 @@ public:
 
 	PharmacyController(PharmacyRepository& repository);
 
-	void operator=(PharmacyController& other);
+	PharmacyController operator=(PharmacyController& other);
 
 	string get_name(int index) { return repo.get_name(index); }
 	double get_concentration(int index) { return repo.get_concentration(index); }

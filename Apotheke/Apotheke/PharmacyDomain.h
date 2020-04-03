@@ -28,11 +28,12 @@ public:
 		concentration = med.concentration;
 		quantity = med.quantity;
 	}
-	void operator=(Medicine& med) {
+	Medicine operator=(Medicine& med) {
 		name = med.name;
 		price = med.price;
 		concentration = med.concentration;
 		quantity = med.quantity;
+		return *this;
 	}
 
 	string get_name() { return name; }
