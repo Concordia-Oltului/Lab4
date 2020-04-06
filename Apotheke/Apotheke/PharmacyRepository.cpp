@@ -1,5 +1,7 @@
 #include "PharmacyRepository.h"
 #include <iostream>
+#include <vector>
+#include <string>
 
 using namespace std;
 
@@ -185,6 +187,55 @@ void PharmacyRepository::sort_by_price() {
 			}
 		}
 	}
+}
+
+vector<Medicine> PharmacyRepository::compute_max_quant(int quantity) {
+	/*
+	Creates a vector with all medicine whose quantity is below the given parameter
+	Input:
+		quantity (int) - maximum quantity provided by user
+	Output:
+		vector<Medicine>
+	@author: Victor
+	*/
+	vector<Medicine> grouped;
+	for (int i = 0; i <= lenght() - 1; i++) {
+		if (med[i].get_quantity() <= quantity) {
+			grouped.push_back(med[i]);
+		}
+	}
+	return grouped;
+}
+
+vector<Medicine> PharmacyRepository::search_string(string partial) {
+	/*
+	Creates a vector with all medicine which contain a certain string given by parameter
+	Input:
+		partial (string) - provided string
+	Output:
+		vector<Medicine>
+	@author: Victor
+	*/
+	unsigned int ctr = 0, j = 0;
+	string aux;
+	vector<Medicine> grouped;
+	for (int i = 0; i <= lenght() - 1; i++) {
+		aux = med[i].get_name();
+		ctr = i;
+		j = 0;
+		while (ctr < aux.size()) {
+			while (aux[ctr] == partial[j] && j < partial.size() && ctr < aux.size()) {
+				ctr++;
+				j++;
+			}
+			if (j == partial.size()) {
+				grouped.push_back(med[i]);
+				break;
+			}
+			ctr++;
+		}
+	}
+	return grouped;
 }
 
 Medicine* PharmacyRepository::get_all_med() {

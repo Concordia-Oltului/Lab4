@@ -2,6 +2,9 @@
 #include <iostream>
 #include <cstring>
 #include "PharmacyDomain.h"
+#include <vector>
+#include <string>
+
 using namespace std;
 
 
@@ -35,6 +38,10 @@ public:
 	bool remove_med(string name, double concentration);
 
 	void sort_by_price();
+
+	vector<Medicine> compute_max_quant(int quantity);
+
+	vector<Medicine> search_string(string partial);
 
 	Medicine* get_all_med();
 

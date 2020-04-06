@@ -172,9 +172,21 @@ void PharmacyUI::main_menu(int choice) {
 			cout << name <<" not in list" << endl;
 	}
 
+	if (choice == 4) { //search string in medicine
+		string partial;
+		cout << "Enter string to search for: ";
+		cin >> partial;
 
-	// To add... -> 4, 5
+		ctrl.show_partial(partial);
+	}
 
+	if (choice == 5) { //show medicine with quantity under provided maximum value
+		int quantity;
+		cout << "Enter maximum quantity: ";
+		cin >> quantity;
+
+		ctrl.show_max_quant(quantity);
+	}
 
 	if (choice == 6) { // sort medicines by price 
 		//@author: Stefan
@@ -184,9 +196,6 @@ void PharmacyUI::main_menu(int choice) {
 	if (choice == 7) { // undo operation
 		undo();
 	}
-
-
-
 }
 
 void PharmacyUI::set_last(string name, double concentration, int quantity, double price) {
@@ -259,14 +268,10 @@ void PharmacyUI::undo() {
 			undo_update(); // undo update
 		}
 
-		// 4 .. 5
-
 	}
 	else{
 		cout << "Nothing to undo" << endl;
 	}
-
-
 }
 
 void PharmacyUI::showUI(){

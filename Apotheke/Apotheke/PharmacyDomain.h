@@ -16,6 +16,13 @@ public:
 		concentration = -1;
 		quantity = -1;
 	}
+	Medicine(const Medicine& m2) {
+		//copy constructor
+		name = m2.name;
+		price = m2.price;
+		concentration = m2.concentration;
+		quantity = m2.quantity;
+	}
 	Medicine(string name_constr, double concentration_constr, double price_constr, int quantity_constr) {
 		name = name_constr;
 		price = price_constr;

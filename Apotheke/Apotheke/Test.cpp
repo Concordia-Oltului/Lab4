@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <vector>
 #include "PharmacyDomain.h"
 #include "PharmacyRepository.h"
 #include "PharmacyController.h"
@@ -91,10 +92,35 @@ void test_update_controller() {
 	assert(ctrl.get_quantity(5) == 120);
 }
 
+void test_compute_quantity() {
+	PharmacyRepository repo;
+	PharmacyController ctrl(repo);
+	for (int i = 10; i < 30; i++) {
+		repo.add_med("nurofen", 2 * i, 5, i);
+	}
+	vector<Medicine> grouped = repo.compute_max_quant(15);
+	assert(grouped.size() == 6);
+}
+
+void test_search_string() {
+	PharmacyRepository repo;
+	PharmacyController ctrl(repo);
+	for (int i = 10; i < 15; i++) {
+		repo.add_med("nurofen", 2 * i, 5, i);
+	}
+	for (int i = 10; i < 15; i++) {
+		repo.add_med("aflen", 2 * i, 5, i);
+	}
+	vector<Medicine> grouped = repo.search_string("fen");
+	assert(grouped.size() == 5);
+}
+
 void runAllTests() {
 	test_getters_setters();
 	test_add_remove_repo();
 	test_sort_by_price();
 	test_add_remove_controller();
 	test_update_controller();
+	test_compute_quantity();
+	test_search_string();
 }

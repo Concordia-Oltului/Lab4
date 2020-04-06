@@ -19,10 +19,7 @@ public:
 	double get_price(int index) { return repo.get_price(index); }
 	int get_quantity(int index) { return repo.get_quantity(index); }
 
-
-
 	int find(string name, double concentration) { return repo.find(name, concentration); }
-
 
 	void add(string name, double concentration, int quantity = 1, double price = 0);
 
@@ -34,6 +31,10 @@ public:
 	void update_quantity(string name, double concentration, double quantity);
 
 	void sort_by_price();
+
+	void show_max_quant(int quantity);
+
+	void show_partial(string partial);
 
 	void print_all();
 

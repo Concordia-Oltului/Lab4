@@ -1,5 +1,6 @@
 #include "PharmacyController.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -76,6 +77,34 @@ void PharmacyController::update_quantity(string name, double concentration, doub
 void PharmacyController::sort_by_price(){
 	//sort elements from rository by price
 	repo.sort_by_price();
+}
+
+void PharmacyController::show_max_quant(int quantity) {
+	/*
+	Prints all medicine with a lower quantity than provided to the console
+	Input:
+		quantity (int) - provided quantity
+	@author: Victor
+	*/
+	vector<Medicine> group = repo.compute_max_quant(quantity);
+
+	for (int i = 0; i < group.size(); i++) {
+		cout << group[i].get_name() << "\t" << group[i].get_concentration() << "\t" << group[i].get_price() << "\t" << group[i].get_quantity() << endl;
+	}
+}
+
+void PharmacyController::show_partial(string partial) {
+	/*
+	Prints all medicine containing a given string
+	Input:
+		partial (string) - provided string
+	@author: Victor
+	*/
+	vector<Medicine> group = repo.search_string(partial);
+	
+	for (int i = 0; i < group.size(); i++) {
+		cout << group[i].get_name() << "\t" << group[i].get_concentration() << "\t" << group[i].get_price() << "\t" << group[i].get_quantity() << endl;
+	}
 }
 
 void PharmacyController::add(string name, double concentration, int quantity, double price) {
