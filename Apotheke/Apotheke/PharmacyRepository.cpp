@@ -187,6 +187,43 @@ void PharmacyRepository::sort_by_price() {
 	}
 }
 
+int PharmacyRepository::count_by_price(double minim, double maxim) {
+	/*
+	Returns the number of form repository with a price value between minim and maxim
+	Input:
+		minim(double) - minimum price to be in group
+		maxim(double) - maximum price to be in group
+	Output:
+		int
+	@author: Stefan
+	*/
+	int k = 0;
+	for (int i = 0; i < elements; i++) {
+		if (med[i].get_price() >= minim && med[i].get_price() <= maxim)
+			k++;
+	}
+	return k;
+}
+
+Medicine* PharmacyRepository::group_by_price(double minim, double maxim){
+	/*
+	Returns elements form repository with a price value between minim and maxim
+	Input:
+		minim(double) - minimum price to be in group
+		maxim(double) - maximum price to be in group
+	Output:
+		Medicine*
+	@author: Stefan
+	*/
+	Medicine* rez = new Medicine[elements];
+	int k = 0;
+	for (int i = 0; i < elements; i++) {
+		if (med[i].get_price() >= minim && med[i].get_price() <= maxim)
+			rez[k++] = med[i];
+	}
+	return rez;
+}
+
 Medicine* PharmacyRepository::get_all_med() {
 	/*
 	Returns all medicines from the list 

@@ -36,6 +36,10 @@ public:
 
 	void sort_by_price();
 
+	int count_by_price(double minim, double maxim);
+
+	Medicine* group_by_price(double minim, double maxim);
+
 	Medicine* get_all_med();
 
 	~PharmacyRepository();

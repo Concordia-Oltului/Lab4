@@ -35,6 +35,8 @@ public:
 
 	void sort_by_price();
 
+	void print_grouped_by_price(double minim, double maxim);
+
 	void print_all();
 
 	~PharmacyController();

@@ -33,7 +33,7 @@ void PharmacyUI::create_menu() {
 	cout << "3. Edit medicine" << endl;
 	cout << "4. Search" << endl;
 	cout << "5. Less than" << endl;
-	cout << "6. Sort by price" << endl;
+	cout << "6. Group by price" << endl;
 	cout << "7. Undo" << endl;
 	cout << "0. Exit" << endl;
 }
@@ -178,8 +178,12 @@ void PharmacyUI::main_menu(int choice) {
 
 	if (choice == 6) { // sort medicines by price 
 		//@author: Stefan
-		ctrl.sort_by_price();
-		ctrl.print_all();
+		double minim, maxim;
+		cout << "Minim: ";
+		cin >> minim;
+		cout << "Maxim: ";
+		cin >> maxim;
+		ctrl.print_grouped_by_price(minim, maxim);
 	}
 	if (choice == 7) { // undo operation
 		undo();

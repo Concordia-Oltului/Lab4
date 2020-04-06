@@ -78,6 +78,7 @@ void PharmacyController::sort_by_price(){
 	repo.sort_by_price();
 }
 
+
 void PharmacyController::add(string name, double concentration, int quantity, double price) {
 	/*
 	Added a new medicine to the list if does not exist in list or increase it's quantity with quantity value
@@ -124,6 +125,19 @@ bool PharmacyController::remove(string name, double concentration, int quantity)
 	return false;
 }
 
+void PharmacyController::print_grouped_by_price(double minim, double maxim){
+	/*
+	Prints elements form repository with a price value between minim and maxim
+	Input:
+		minim(double) - minimum price to be in group
+		maxim(double) - maximum price to be in group
+	@author: Stefan
+	*/
+	Medicine* group = repo.group_by_price(minim, maxim);
+	cout << "Name\tConcentration\tPrice\tQuantity" << endl;
+	for (int i = 0; i < repo.count_by_price(minim, maxim); i++)
+		cout << group[i].get_name() << "\t" << group[i].get_concentration() << "\t" << group[i].get_price() << "\t" << group[i].get_quantity() << endl;
+}
 
 void PharmacyController::print_all() {
 	/*
