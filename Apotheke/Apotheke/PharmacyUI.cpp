@@ -34,7 +34,8 @@ void PharmacyUI::create_menu() {
 	cout << "4. Search" << endl;
 	cout << "5. Less than" << endl;
 	cout << "6. Group by price" << endl;
-	cout << "7. Undo" << endl;
+	cout << "7. Print all" << endl;
+	cout << "8. Undo" << endl; //for redo, reuse undo after undoing an action
 	cout << "0. Exit" << endl;
 }
 
@@ -47,7 +48,7 @@ void PharmacyUI::create_update_menu() {
 	cout << "2. Update concentration" << endl;
 	cout << "3. Update price" << endl;
 	cout << "4. Update quantity" << endl;
-	cout << "5. Undo" << endl;
+	cout << "5. Undo" << endl; //for redo, reuse undo after undoing an action
 	cout << "0. Back" << endl;
 }
 
@@ -63,7 +64,7 @@ int PharmacyUI::get_user_option() {
 
 void PharmacyUI::main_menu(int choice) {
 	// Applying changes to the controller depends of user choice
-	if(choice != 7)// if choice is  not undo last_choice become curent choice
+	if(choice != 8)// if choice is  not undo last_choice become curent choice
 		last_choice = choice; // for undo
 	if (choice == 1) { //  Add opotion
 		// @author: Stefan
@@ -173,6 +174,7 @@ void PharmacyUI::main_menu(int choice) {
 	}
 
 	if (choice == 4) { //search string in medicine
+		//@author: Victor
 		string partial;
 		cout << "Enter string to search for: ";
 		cin >> partial;
@@ -181,6 +183,7 @@ void PharmacyUI::main_menu(int choice) {
 	}
 
 	if (choice == 5) { //show medicine with quantity under provided maximum value
+		//@author: Victor
 		int quantity;
 		cout << "Enter maximum quantity: ";
 		cin >> quantity;
@@ -197,7 +200,13 @@ void PharmacyUI::main_menu(int choice) {
 		cin >> maxim;
 		ctrl.print_grouped_by_price(minim, maxim);
 	}
-	if (choice == 7) { // undo operation
+
+	if (choice == 7) {
+		//@author: Victor
+		ctrl.print_all();
+	}
+
+	if (choice == 8) { // undo operation
 		undo();
 	}
 }
@@ -222,21 +231,43 @@ void PharmacyUI::set_last(string name, double concentration, int quantity, doubl
 void PharmacyUI::undo_update() {
 	/*
 	Does the undo operation for update depends of last_update value 
-	@author: Stefan
+	@author: Stefan(undo) & Victor(redo)
 	*/
 
 	if (last_update != -1) {
 		if (last_update == 1) {
 			ctrl.update_name(last_name, last_concentration, last_changed_name);
+
+			//redo modifications
+			string aux;
+			aux = last_name;
+			last_name = last_changed_name;
+			last_changed_name = aux;
 		}
 		if (last_update == 2) {
 			ctrl.update_concentration(last_name, last_concentration, last_changed_concentration);
+
+			//redo modifications
+			double aux;
+			aux = last_concentration;
+			last_concentration = last_changed_concentration;
+			last_changed_concentration = last_concentration;
 		}
 		if (last_update == 3) {
+			double aux = ctrl.get_price(ctrl.find(last_name, last_concentration)); //for redo
+
 			ctrl.update_price(last_name, last_concentration, last_changed_price);
+
+			//redo modifications
+			last_changed_price = aux;
 		}
 		if (last_update == 4) {
+			double aux = ctrl.get_quantity(ctrl.find(last_name, last_concentration)); //for redo
+
 			ctrl.update_quantity(last_name, last_concentration, last_changed_quantity);
+
+			//redo modifications
+			last_changed_quantity = aux;
 		}
 	}
 	else {
@@ -246,29 +277,34 @@ void PharmacyUI::undo_update() {
 
 void PharmacyUI::undo() {
 	//Does the undo operation depends of last_choice value
-
+	//@author: Stefan(undo) & Victor(redo)
 	if (last_choice != -1) {
 
 		if (last_choice == 1){ // add->remove
-			// author: Stefan
 			if (last_quantity > 0) {
-				bool check = ctrl.remove(last_name, last_concentration, last_quantity);
+				ctrl.remove(last_name, last_concentration, last_quantity);
+				last_choice = 2;
+				return;
 			}
 			else {
-				bool check = ctrl.remove(last_name, last_concentration);
+				ctrl.remove(last_name, last_concentration);
+				last_choice = 2;
+				return;
 			}
 		}
 		if (last_choice == 2) { // remove->add
-			// author: Stefan
 			if (last_price < 0) {
 				ctrl.add(last_name, last_concentration, last_quantity);
+				last_choice = 1; //for redo
+				return;
 			}
 			else {
 				ctrl.add(last_name, last_concentration, last_quantity, last_price);
+				last_choice = 1; //for redo
+				return;
 			}
 		}
 		if (last_choice == 3) {
-			// author: Stefan
 			undo_update(); // undo update
 		}
 
@@ -282,7 +318,7 @@ void PharmacyUI::showUI(){
 	// Create user interface
 	create_menu();
 	int choice = get_user_option();
-	while (choice >= 1 && choice <= 7){
+	while (choice >= 1 && choice <= 8){
 		main_menu(choice);
 		create_menu();
 		choice = get_user_option();
