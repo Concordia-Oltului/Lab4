@@ -57,6 +57,20 @@ void test_sort_by_price() {
 	}
 }
 
+void test_group_by_price() {
+	PharmacyRepository repo;
+	for (int i = 0; i < 15; i++) {
+		repo.add_med("paracetamol", 3, i, 10);
+	}
+	assert(repo.count_by_price(0, 4) == 5);
+	assert(repo.count_by_price(5, 9) == 5);
+	assert(repo.count_by_price(10, 14) == 5);
+	Medicine* test = repo.group_by_price(0,4);
+	for (int i = 0; i < repo.count_by_price(0, 4); i++) {
+		assert(test[i].get_price() == (i));
+	}
+}
+
 void test_add_remove_controller() {
 	PharmacyRepository repo;
 	PharmacyController ctrl(repo);
@@ -119,6 +133,7 @@ void runAllTests() {
 	test_getters_setters();
 	test_add_remove_repo();
 	test_sort_by_price();
+	test_group_by_price();
 	test_add_remove_controller();
 	test_update_controller();
 	test_compute_quantity();
