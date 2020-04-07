@@ -100,10 +100,33 @@ void PharmacyController::show_partial(string partial) {
 		partial (string) - provided string
 	@author: Victor
 	*/
-	vector<Medicine> group = repo.search_string(partial);
-	
-	for (int i = 0; i < group.size(); i++) {
-		cout << group[i].get_name() << "\t" << group[i].get_concentration() << "\t" << group[i].get_price() << "\t" << group[i].get_quantity() << endl;
+
+	if (partial.size() > 1) { //if string is not empty
+		vector<Medicine> group = repo.search_string(partial);
+		for (int i = 0; i < group.size(); i++) {
+			cout << group[i].get_name() << "\t" << group[i].get_concentration() << "\t" << group[i].get_price() << "\t" << group[i].get_quantity() << endl;
+		}
+	}
+	else { //if string is empty
+		Medicine* lista = new Medicine[repo.get_capacity()];
+		lista = repo.get_all_med();
+		int sch = 1;
+		while (sch)
+		{
+			sch = 0;
+			for (int i = 0; i < repo.lenght() - 1; i++) {
+				if (lista[i].get_name() > lista[i + 1].get_name()) {
+					Medicine aux;
+					aux = lista[i];
+					lista[i] = lista[i + 1];
+					lista[i + 1] = aux;
+					sch = 1;
+				}
+			}
+		}
+		for (int i = 0; i < repo.lenght(); i++) {
+			cout << lista[i].get_name() << "\t" << lista[i].get_concentration() << "\t" << lista[i].get_price() << "\t" << lista[i].get_quantity() << endl;
+		}
 	}
 }
 
